@@ -1,0 +1,518 @@
+/* Main Profile Page */
+.profile-page {
+min-height: 100vh;
+background: #f7f5fc;
+padding: 50px 20px;
+font-family: 'DM Sans', sans-serif;
+}
+
+.profile-card {
+max-width: 850px;
+margin: 0 auto;
+padding: 35px;
+background: #ffffff;
+border-radius: 22px;
+box-shadow: 0 8px 35px rgba(70, 40, 120, 0.08);
+}
+
+/* Back Button */
+.profile-back {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+padding: 10px 16px;
+border: none;
+border-radius: 9px;
+background: #f1edfa;
+color: #7041c5;
+font-size: 14px;
+font-weight: 600;
+cursor: pointer;
+transition: 0.2s;
+}
+
+.profile-back:hover {
+background: #e5dcf8;
+transform: translateX(-3px);
+}
+
+/* Profile Heading */
+.profile-heading {
+text-align: center;
+padding: 30px 0;
+}
+
+.profile-avatar {
+width: 100px;
+height: 100px;
+margin: 0 auto 18px;
+border-radius: 50%;
+background: linear-gradient(135deg, #8054c7, #b18bea);
+color: white;
+display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: 0 6px 18px rgba(128, 84, 199, 0.25);
+}
+
+.profile-heading h1 {
+color: #302342;
+font-size: 30px;
+margin-bottom: 8px;
+}
+
+.profile-heading p {
+color: #888;
+font-size: 15px;
+}
+
+.profile-divider {
+border: none;
+border-top: 1px solid #eee;
+margin: 10px 0 25px;
+}
+
+/* Account Information */
+.profile-card > h2 {
+color: #302342;
+font-size: 21px;
+margin-bottom: 20px;
+}
+
+.profile-info {
+display: flex;
+align-items: center;
+gap: 16px;
+padding: 17px;
+margin-bottom: 12px;
+background: #faf9fd;
+border: 1px solid #f0edf6;
+border-radius: 12px;
+color: #8054c7;
+}
+
+.profile-info div {
+display: flex;
+flex-direction: column;
+gap: 5px;
+}
+
+.profile-info span {
+color: #999;
+font-size: 13px;
+}
+
+.profile-info strong {
+color: #302342;
+font-size: 15px;
+overflow-wrap: anywhere;
+}
+
+/* Profile Statistics */
+.profile-stats {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 18px;
+margin-top: 30px;
+}
+
+.stat-card {
+padding: 25px 15px;
+text-align: center;
+background: linear-gradient(145deg, #faf8ff, #f0eaff);
+border: 1px solid #eee7fa;
+border-radius: 16px;
+transition: 0.25s;
+}
+
+.stat-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 20px rgba(70, 40, 120, 0.1);
+}
+
+.stat-card svg {
+color: #8054c7;
+margin-bottom: 10px;
+}
+
+.stat-card h3 {
+color: #302342;
+font-size: 28px;
+margin-bottom: 6px;
+}
+
+.stat-card p {
+color: #888;
+font-size: 13px;
+font-weight: 600;
+}
+
+/* Most Popular Artwork */
+.popular-product {
+margin-top: 35px;
+padding: 25px;
+background: linear-gradient(135deg, #f8f3ff, #eee7ff);
+border: 1px solid #e8def8;
+border-radius: 17px;
+}
+
+.popular-heading {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-bottom: 20px;
+color: #7041c5;
+}
+
+.popular-heading h2 {
+color: #302342;
+font-size: 20px;
+}
+
+.popular-product-card {
+display: flex;
+align-items: center;
+gap: 20px;
+padding: 15px;
+background: white;
+border-radius: 13px;
+cursor: pointer;
+transition: 0.25s;
+}
+
+.popular-product-card:hover {
+transform: translateY(-3px);
+box-shadow: 0 6px 18px rgba(70, 40, 120, 0.1);
+}
+
+.popular-product-card img {
+width: 115px;
+height: 105px;
+object-fit: cover;
+border-radius: 10px;
+}
+
+.popular-product-card h3 {
+color: #302342;
+margin-bottom: 8px;
+}
+
+.popular-product-card p {
+color: #7041c5;
+font-weight: 700;
+margin-bottom: 8px;
+}
+
+.popular-product-card span {
+color: #e05275;
+font-size: 13px;
+font-weight: 600;
+}
+
+/* My Selling Activity */
+.my-listings-section {
+margin-top: 40px;
+padding-top: 30px;
+border-top: 1px solid #eee;
+}
+
+.listings-heading {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 12px;
+margin-bottom: 22px;
+}
+
+.listings-heading h2 {
+color: #302342;
+font-size: 22px;
+margin-bottom: 7px;
+}
+
+.listings-heading p {
+color: #888;
+font-size: 14px;
+}
+
+.listing-count {
+background: #eee8ff;
+color: #7041c5;
+padding: 9px 16px;
+border-radius: 20px;
+font-weight: 700;
+white-space: nowrap;
+}
+
+.listings-message {
+text-align: center;
+padding: 30px;
+color: #777;
+}
+
+.error-message {
+color: #d93025;
+}
+
+/* Empty Listings */
+.empty-listings {
+text-align: center;
+padding: 45px 20px;
+background: #faf8ff;
+border: 1px dashed #d9c9f5;
+border-radius: 16px;
+color: #888;
+}
+
+.empty-listings svg {
+color: #8054c7;
+margin-bottom: 10px;
+}
+
+.empty-listings h3 {
+color: #302342;
+margin: 12px 0 8px;
+}
+
+.empty-listings p {
+font-size: 14px;
+}
+
+.empty-listings button {
+margin-top: 18px;
+background: #8054c7;
+color: white;
+border: none;
+padding: 12px 22px;
+border-radius: 9px;
+font-weight: 600;
+cursor: pointer;
+transition: 0.2s;
+}
+
+.empty-listings button:hover {
+background: #693caf;
+transform: translateY(-2px);
+}
+
+/* Product Cards */
+.my-listings-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+gap: 20px;
+}
+
+.my-listing-card {
+border: 1px solid #eee;
+border-radius: 15px;
+overflow: hidden;
+cursor: pointer;
+transition: 0.25s;
+background: white;
+}
+
+.my-listing-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 22px rgba(70, 40, 120, 0.12);
+}
+
+.my-listing-card img {
+width: 100%;
+height: 160px;
+object-fit: cover;
+}
+
+.my-listing-content {
+padding: 15px;
+}
+
+.my-listing-content h3 {
+color: #302342;
+font-size: 16px;
+margin-bottom: 10px;
+}
+
+.my-listing-content strong {
+color: #7041c5;
+font-size: 18px;
+}
+
+.my-listing-content p {
+color: #888;
+font-size: 13px;
+margin: 9px 0;
+}
+
+.my-listing-content span {
+display: inline-block;
+background: #f1edfa;
+color: #7041c5;
+padding: 6px 10px;
+border-radius: 7px;
+font-size: 12px;
+}
+
+/* Individual Product Likes */
+.product-likes {
+display: flex;
+align-items: center;
+gap: 6px;
+margin-top: 13px;
+color: #e05275;
+font-size: 13px;
+font-weight: 700;
+}
+
+/* Creative Space */
+.profile-extras {
+margin-top: 40px;
+padding-top: 30px;
+border-top: 1px solid #eee;
+}
+
+.profile-extras h2 {
+color: #302342;
+font-size: 22px;
+margin-bottom: 22px;
+}
+
+.profile-action-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 18px;
+}
+
+.profile-action {
+padding: 25px 20px;
+background: #faf8ff;
+border: 1px solid #eee7fa;
+border-radius: 15px;
+cursor: pointer;
+transition: 0.25s;
+}
+
+.profile-action:hover {
+background: #f2ebff;
+transform: translateY(-4px);
+box-shadow: 0 6px 18px rgba(70, 40, 120, 0.08);
+}
+
+.profile-action span {
+font-size: 28px;
+}
+
+.profile-action h3 {
+color: #302342;
+font-size: 17px;
+margin: 13px 0 8px;
+}
+
+.profile-action p {
+color: #888;
+font-size: 13px;
+line-height: 1.6;
+}
+
+/* Creative Tip */
+.creative-tip {
+margin-top: 22px;
+padding: 20px;
+background: linear-gradient(135deg, #eee8ff, #f8f3ff);
+border-radius: 14px;
+}
+
+.creative-tip span {
+color: #7041c5;
+font-weight: 700;
+}
+
+.creative-tip p {
+color: #666;
+font-size: 14px;
+line-height: 1.7;
+margin-top: 9px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+.profile-page {
+padding: 20px 12px;
+}
+
+.profile-card {
+padding: 20px 15px;
+}
+
+.profile-heading h1 {
+font-size: 25px;
+}
+
+.profile-stats {
+grid-template-columns: 1fr;
+gap: 12px;
+}
+
+.stat-card {
+padding: 18px;
+}
+
+.popular-product {
+padding: 16px;
+}
+
+.popular-product-card {
+gap: 12px;
+}
+
+.popular-product-card img {
+width: 90px;
+height: 90px;
+}
+
+.popular-heading h2 {
+font-size: 17px;
+}
+
+.listings-heading h2,
+.profile-extras h2 {
+font-size: 19px;
+}
+
+.profile-action-grid {
+grid-template-columns: 1fr;
+}
+
+.my-listings-grid {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 12px;
+}
+
+.my-listing-card img {
+height: 125px;
+}
+}
+.my-complaints-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  background: #6c4cf1;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.my-complaints-btn:hover {
+  background: #5636d6;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(108, 76, 241, 0.25);
+}
+
+.my-complaints-btn:active {
+  transform: translateY(0);
+}

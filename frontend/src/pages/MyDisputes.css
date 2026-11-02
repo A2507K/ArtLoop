@@ -1,0 +1,208 @@
+.my-disputes-page {
+  min-height: 100vh;
+  background: #f6f8f4;
+  color: #304b38;
+  padding-bottom: 50px;
+}
+
+.disputes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 7%;
+  background: #fff;
+  border-bottom: 1px solid #e4eadf;
+}
+
+.disputes-header h1 {
+  font-size: 25px;
+  margin: 0;
+  color: #304b38;
+}
+
+.disputes-header button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #d8e3d5;
+  background: #fff;
+  color: #496b50;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.disputes-header button:hover {
+  background: #edf4eb;
+}
+
+.disputes-container {
+  max-width: 950px;
+  margin: 45px auto;
+  padding: 0 20px;
+}
+
+.disputes-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.disputes-title > svg {
+  color: #32845a;
+}
+
+.disputes-title h2 {
+  margin: 0 0 6px;
+  font-size: 26px;
+}
+
+.disputes-title p {
+  margin: 0;
+  color: #788477;
+}
+
+.disputes-message,
+.disputes-error {
+  text-align: center;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+}
+
+.disputes-error {
+  color: #c0392b;
+}
+
+.disputes-empty {
+  text-align: center;
+  background: #fff;
+  padding: 55px 20px;
+  border-radius: 14px;
+  border: 1px solid #e5ebdf;
+}
+
+.disputes-empty svg {
+  color: #8ba58b;
+}
+
+.disputes-empty h3 {
+  margin-bottom: 8px;
+}
+
+.disputes-empty p {
+  color: #788477;
+}
+
+.disputes-empty button {
+  margin-top: 15px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 8px;
+  background: #496b50;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.disputes-list {
+  display: grid;
+  gap: 20px;
+}
+
+.dispute-card {
+  background: #fff;
+  border: 1px solid #e3eade;
+  border-radius: 13px;
+  padding: 24px;
+  box-shadow: 0 4px 14px rgba(48, 75, 56, 0.05);
+}
+
+.dispute-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.dispute-card-header h3 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.dispute-card p {
+  line-height: 1.6;
+  color: #59675a;
+  overflow-wrap: anywhere;
+}
+
+.dispute-status {
+  padding: 7px 13px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.dispute-status.pending {
+  background: #fff2d6;
+  color: #a56a00;
+}
+
+.dispute-status.under-review {
+  background: #e4efff;
+  color: #285a9e;
+}
+
+.dispute-status.resolved {
+  background: #dcf4e3;
+  color: #247442;
+}
+
+.dispute-status.rejected {
+  background: #ffe4e1;
+  color: #b33b32;
+}
+
+.admin-resolution {
+  margin-top: 18px;
+  padding: 16px;
+  background: #edf5ed;
+  border-left: 4px solid #32845a;
+  border-radius: 7px;
+}
+
+.admin-resolution p {
+  margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+  .disputes-header {
+    padding: 16px;
+  }
+
+  .disputes-header h1 {
+    font-size: 19px;
+  }
+
+  .disputes-header button {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .disputes-container {
+    margin-top: 30px;
+  }
+
+  .dispute-card {
+    padding: 17px;
+  }
+
+  .dispute-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
