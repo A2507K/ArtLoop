@@ -1,40 +1,45 @@
+require('dotenv').config();
+
 const dns = require('node:dns');
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Allowed frontend origins
-const allowedOrigins = (
-  process.env.FRONTEND_URL || 'http://localhost:5173'
-)
-  .split(',')
-  .map((origin) => origin.trim().replace(/\/$/, ''));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'https://art-loop-git-main-aravind-ddc4.vercel.app',
+  'https://art-loop-asrnuxe88-aravind-ddc4.vercel.app',
+  ...(process.env.FRONTEND_URL || '').split(','),
+]
+  .map((origin) => origin.trim().replace(/\/+$/, ''))
+.filter(Boolean);
 
+// CORS configuration
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests without an origin (health checks, etc.)
-      if (!origin) {
+      if (!origin || allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 
-      const normalizedOrigin = origin.replace(/\/$/, '');
-
-      if (allowedOrigins.includes(normalizedOrigin)) {
-        return callback(null, true);
-      }
-
+      console.log('Blocked by CORS:', origin);
       return callback(new Error('Not allowed by CORS'));
     },
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+
   })
 );
 
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -63,7 +68,9 @@ app.get('/api/health', (req, res) => {
     success: true,
     message: 'Art Supply Marketplace API is running!',
     database:
-      mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+      mongoose.connection.readyState === 1
+        ? 'connected'
+        : 'disconnected',
     timestamp: new Date().toISOString(),
   });
 });
@@ -80,7 +87,7 @@ app.get('/', (req, res) => {
 async function startServer() {
   try {
     if (!process.env.MONGODB_URI) {
-      throw new Error('MONGODB_URI is missing from the environment variables');
+      throw new Error('MONGODB_URI is missing from environment variables');
     }
 
     await mongoose.connect(process.env.MONGODB_URI);
@@ -89,7 +96,9 @@ async function startServer() {
 
     app.listen(PORT, () => {
       console.log(`Backend server running on port ${PORT}`);
+      console.log('Allowed frontend origins:', allowedOrigins);
     });
+
   } catch (error) {
     console.error('Failed to start the backend:', error.message);
     process.exit(1);
