@@ -44,7 +44,6 @@ const swapRequestSchema = new mongoose.Schema(
   }
 );
 
-// Prevent users from requesting swaps for their own products.
 swapRequestSchema.index({
   requester: 1,
   requestedProduct: 1,

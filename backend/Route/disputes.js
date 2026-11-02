@@ -8,7 +8,6 @@ const Product = require('../models/Product');
 const authMiddleware = require('../middleware/authMiddleware');
 const adminMiddleware = require('../middleware/adminMiddleware');
 
-// Create a dispute
 router.post('/', authMiddleware, async (req, res) => {
     try {
         const { againstUser, product, reason, description } = req.body;
@@ -84,7 +83,6 @@ router.post('/', authMiddleware, async (req, res) => {
     }
 });
 
-// Get user's own disputes
 router.get('/my', authMiddleware, async (req, res) => {
 try {
 console.log('Logged-in user ID:', req.user.userId);
@@ -143,7 +141,6 @@ router.get('/', authMiddleware, adminMiddleware, async (req, res) => {
 });
 
 
-// Admin: Update dispute status and notes
 router.patch('/:id', authMiddleware, adminMiddleware, async (req, res) => {
     try {
         const { status, adminNotes } = req.body;

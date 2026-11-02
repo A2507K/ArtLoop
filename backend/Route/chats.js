@@ -7,7 +7,6 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-// Start a conversation with a product seller
 router.post('/product/:productId', authMiddleware, async (req, res) => {
   try {
     const { productId } = req.params;
@@ -84,7 +83,6 @@ router.post('/product/:productId', authMiddleware, async (req, res) => {
 });
 
 
-// Get all conversations with unread message counts
 router.get('/', authMiddleware, async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -129,7 +127,6 @@ router.get('/', authMiddleware, async (req, res) => {
 });
 
 
-// Get a conversation and mark received messages as read
 router.get('/:id', authMiddleware, async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -161,7 +158,6 @@ router.get('/:id', authMiddleware, async (req, res) => {
       });
     }
 
-    // Mark messages from the other participant as read
     let changed = false;
 
     chat.messages.forEach((message) => {
@@ -203,7 +199,6 @@ router.get('/:id', authMiddleware, async (req, res) => {
 });
 
 
-// Send a message
 router.post('/:id/messages', authMiddleware, async (req, res) => {
   try {
     const { text } = req.body;

@@ -16,7 +16,6 @@ const token = authHeader.split(' ')[1];
 try {
 const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-// Fetch the current user from MongoDB
 const user = await User.findById(decoded.userId).select('_id role');
 
 if (!user) {
@@ -26,7 +25,6 @@ if (!user) {
   });
 }
 
-// Use the current database role, not the JWT role
 req.user = {
   userId: user._id.toString(),
   role: user.role,

@@ -8,7 +8,6 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-// POST: Create a swap request
 router.post('/', authMiddleware, async (req, res) => {
   try {
     const { requestedProductId, offeredProductId, message } = req.body;
@@ -119,7 +118,6 @@ router.post('/', authMiddleware, async (req, res) => {
 });
 
 
-// GET: View sent swap requests
 router.get('/sent', authMiddleware, async (req, res) => {
   try {
     const requests = await SwapRequest.find({
@@ -146,7 +144,6 @@ router.get('/sent', authMiddleware, async (req, res) => {
 });
 
 
-// GET: View received swap requests
 router.get('/received', authMiddleware, async (req, res) => {
   try {
     const requests = await SwapRequest.find({
@@ -173,7 +170,6 @@ router.get('/received', authMiddleware, async (req, res) => {
 });
 
 
-// PATCH: Accept or reject a swap request
 router.patch('/:id/respond', authMiddleware, async (req, res) => {
   try {
     const { action } = req.body;
@@ -262,7 +258,6 @@ router.patch('/:id/respond', authMiddleware, async (req, res) => {
 });
 
 
-// PATCH: Cancel a sent swap request
 router.patch('/:id/cancel', authMiddleware, async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {

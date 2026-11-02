@@ -9,42 +9,35 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-// Middleware
 app.use(
   cors({
     origin: process.env.FRONTEND_URL || 'http://localhost:5173',
   })
 );
 
-// Parse incoming JSON requests
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Authentication routes
 const authRoutes = require('./Route/auth');
 app.use('/api/auth', authRoutes);
 
 
-// Product routes
 const productRoutes = require('./Route/products');
 app.use('/api/products', productRoutes);
 
-// Swap Request routes
 const swapRoutes = require('./Route/swaps');
 app.use('/api/swaps', swapRoutes);
-// Chat routes
+
 const chatRoutes = require('./Route/chats');
 app.use('/api/chats', chatRoutes);
 
 const adminRoutes = require('./Route/admin');
 app.use('/api/admin', adminRoutes);
 
-// Dispute Management routes
 const disputeRoutes = require('./Route/disputes');
 app.use('/api/disputes', disputeRoutes);
 
 
-// Health check
 app.get('/api/health', (req, res) => {
 
   res.status(200).json({
@@ -56,7 +49,6 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Root route
 app.get('/', (req, res) => {
   res.status(200).json({
     message:
@@ -64,7 +56,6 @@ app.get('/', (req, res) => {
   });
 });
 
-// Connect to MongoDB and start the server
 async function startServer() {
   try {
     if (!process.env.MONGODB_URI) {

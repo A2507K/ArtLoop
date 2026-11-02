@@ -640,7 +640,6 @@ function Admin() {
           </p>
         )}
 
-        {/* Dashboard */}
         {activeSection === 'Dashboard' && (
           <section className="admin-stats">
 
@@ -671,7 +670,6 @@ function Admin() {
           </section>
         )}
 
-        {/* Product Listings */}
         {activeSection === 'Product Listings' && (
           <>
 
@@ -965,7 +963,6 @@ function Admin() {
           </>
         )}
 
-        {/* User Management */}
         {activeSection === 'User Management' && (
           <section className="admin-table-card">
 
@@ -1017,7 +1014,6 @@ function Admin() {
           </section>
         )}
 
-        {/* Dispute Management */}
         {activeSection === 'Dispute Management' && (
           <section className="admin-table-card">
 
@@ -1183,7 +1179,6 @@ function Admin() {
           </section>
         )}
 
-        {/* Settings */}
         {activeSection === 'Settings' && (
           <section
             className="admin-table-card"
@@ -1206,7 +1201,6 @@ function Admin() {
           ArtLoop Admin Panel · Marketplace Management
         </footer>
 
-        {/* Edit Product Modal */}
         {editingProduct && (
           <div
             className="admin-modal-overlay"
@@ -1321,7 +1315,6 @@ function Admin() {
                   />
                 </label>
 
-                {/* Replacement Image Upload */}
                 <label style={{ gridColumn: '1 / -1' }}>
                   Product Image
 
@@ -1406,7 +1399,6 @@ function Admin() {
           </div>
         )}
 
-        {/* Delete Confirmation Modal */}
         {showDeleteModal && (
           <div
             className="admin-modal-overlay"
@@ -1458,7 +1450,6 @@ function Admin() {
           </div>
         )}
 
-        {/* Toast Notifications */}
         {toast && (
           <div
             className={`admin-toast admin-toast-${toast.type}`}

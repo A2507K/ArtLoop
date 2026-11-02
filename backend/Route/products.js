@@ -11,10 +11,6 @@ const upload = require('../middleware/upload');
 
 const router = express.Router();
 
-// ========================================
-// GET ALL PRODUCTS
-// ========================================
-
 router.get('/', async (req, res) => {
   try {
     const products = await Product.find()
@@ -36,9 +32,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ========================================
-// GET MY LISTINGS
-// ========================================
 
 router.get('/my/listings', authMiddleware, async (req, res) => {
   try {
@@ -60,10 +53,6 @@ router.get('/my/listings', authMiddleware, async (req, res) => {
     });
   }
 });
-
-// ========================================
-// GET MY WISHLIST
-// ========================================
 
 router.get('/my/wishlist', authMiddleware, async (req, res) => {
   try {
@@ -98,9 +87,6 @@ router.get('/my/wishlist', authMiddleware, async (req, res) => {
   }
 });
 
-// ========================================
-// ADD PRODUCT TO WISHLIST
-// ========================================
 
 router.post('/:id/wishlist', authMiddleware, async (req, res) => {
   try {
@@ -148,9 +134,6 @@ router.post('/:id/wishlist', authMiddleware, async (req, res) => {
   }
 });
 
-// ========================================
-// MARK PRODUCT AS SOLD
-// ========================================
 
 router.patch('/:id/sold', authMiddleware, async (req, res) => {
   try {
@@ -209,9 +192,6 @@ router.patch('/:id/sold', authMiddleware, async (req, res) => {
   }
 });
 
-// ========================================
-// REMOVE PRODUCT FROM WISHLIST
-// ========================================
 
 router.delete('/:id/wishlist', authMiddleware, async (req, res) => {
   try {
@@ -249,10 +229,6 @@ router.delete('/:id/wishlist', authMiddleware, async (req, res) => {
     });
   }
 });
-
-// ========================================
-// PRODUCT REVIEWS
-// ========================================
 
 router.post('/:id/reviews', authMiddleware, async (req, res) => {
   try {
@@ -345,9 +321,6 @@ router.post('/:id/reviews', authMiddleware, async (req, res) => {
   }
 });
 
-// ========================================
-// GET INDIVIDUAL PRODUCT
-// ========================================
 
 router.get('/:id', async (req, res) => {
   try {
@@ -397,9 +370,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// ========================================
-// PRODUCT LIKES
-// ========================================
 
 router.post('/:id/like', authMiddleware, async (req, res) => {
   try {
@@ -455,10 +425,6 @@ router.post('/:id/like', authMiddleware, async (req, res) => {
     });
   }
 });
-
-// ========================================
-// CREATE PRODUCT WITH IMAGE UPLOAD
-// ========================================
 
 router.post(
   '/',
@@ -533,10 +499,6 @@ router.post(
   }
 );
 
-// ========================================
-// UPDATE PRODUCT WITH IMAGE UPLOAD
-// ========================================
-
 router.put(
   '/:id',
   authMiddleware,
@@ -587,7 +549,6 @@ router.put(
         }
       });
 
-      // Upload replacement image if selected
       if (req.file) {
         const result = await new Promise((resolve, reject) => {
           const stream = cloudinary.uploader.upload_stream(
@@ -629,10 +590,6 @@ router.put(
     }
   }
 );
-
-// ========================================
-// DELETE PRODUCT
-// ========================================
 
 router.delete('/:id', authMiddleware, async (req, res) => {
   try {

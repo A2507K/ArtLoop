@@ -34,7 +34,6 @@ const userSchema = new mongoose.Schema(
       default: 'user',
     },
 
-    // Wishlist
     wishlist: [
       {
         type: mongoose.Schema.Types.ObjectId,
