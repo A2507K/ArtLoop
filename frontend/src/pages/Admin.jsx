@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Admin.css';
+import API_BASE_URL from '../api';import './Admin.css';
 
 function Admin() {
   const navigate = useNavigate();
 
-  const API = 'http://localhost:3000/api';
+  const API = `${API_BASE_URL}/api`;
 
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
@@ -268,7 +268,6 @@ function Admin() {
         throw new Error(data.message || 'Unable to update product.');
       }
 
-      // Update the product in the table immediately
       setProducts((previousProducts) =>
         previousProducts.map((product) =>
           product._id === data.product._id ? data.product : product
@@ -640,6 +639,7 @@ function Admin() {
           </p>
         )}
 
+        {/* Dashboard */}
         {activeSection === 'Dashboard' && (
           <section className="admin-stats">
 
@@ -670,6 +670,7 @@ function Admin() {
           </section>
         )}
 
+        {/* Product Listings */}
         {activeSection === 'Product Listings' && (
           <>
 
@@ -963,6 +964,7 @@ function Admin() {
           </>
         )}
 
+        {/* User Management */}
         {activeSection === 'User Management' && (
           <section className="admin-table-card">
 
@@ -1014,6 +1016,7 @@ function Admin() {
           </section>
         )}
 
+        {/* Dispute Management */}
         {activeSection === 'Dispute Management' && (
           <section className="admin-table-card">
 
@@ -1179,6 +1182,7 @@ function Admin() {
           </section>
         )}
 
+        {/* Settings */}
         {activeSection === 'Settings' && (
           <section
             className="admin-table-card"
@@ -1201,6 +1205,7 @@ function Admin() {
           ArtLoop Admin Panel · Marketplace Management
         </footer>
 
+        {/* Edit Product Modal */}
         {editingProduct && (
           <div
             className="admin-modal-overlay"
@@ -1399,6 +1404,7 @@ function Admin() {
           </div>
         )}
 
+        {/* Delete Confirmation Modal */}
         {showDeleteModal && (
           <div
             className="admin-modal-overlay"
@@ -1450,6 +1456,7 @@ function Admin() {
           </div>
         )}
 
+        {/* Toast Notification */}
         {toast && (
           <div
             className={`admin-toast admin-toast-${toast.type}`}

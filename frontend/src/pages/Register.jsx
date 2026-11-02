@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Palette, User, Mail, Lock, Phone, ArrowRight } from 'lucide-react';
+import {
+  Palette,
+  User,
+  Mail,
+  Lock,
+  Phone,
+  ArrowRight,
+} from 'lucide-react';
+import API_BASE_URL from '../api';
 import './Auth.css';
 
 function Register() {
@@ -50,7 +58,7 @@ function Register() {
 
     try {
       const response = await fetch(
-        'http://localhost:3000/api/auth/register',
+        `${API_BASE_URL}/api/auth/register`,
         {
           method: 'POST',
           headers: {
@@ -71,14 +79,18 @@ function Register() {
         throw new Error(data.message || 'Registration failed.');
       }
 
-      setSuccess('Account created successfully! Redirecting to login...');
+      setSuccess(
+        'Account created successfully! Redirecting to login...'
+      );
 
       setTimeout(() => {
         navigate('/login');
       }, 1500);
+
     } catch (err) {
       setError(
-        err.message || 'Unable to connect to the server. Please try again.'
+        err.message ||
+        'Unable to connect to the server. Please try again.'
       );
     } finally {
       setLoading(false);
@@ -98,7 +110,9 @@ function Register() {
         <div className="auth-heading">
           <span className="auth-eyebrow">JOIN THE COMMUNITY</span>
           <h1>Make room for creativity.</h1>
-          <p>Create an account to buy, sell, and exchange art supplies.</p>
+          <p>
+            Create an account to buy, sell, and exchange art supplies.
+          </p>
         </div>
 
         <form onSubmit={handleSubmit}>

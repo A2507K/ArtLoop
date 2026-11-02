@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../api';
 import './ProductDetails.css';
 
 function ProductDetails() {
@@ -26,11 +27,11 @@ function ProductDetails() {
   const [swapFeedback, setSwapFeedback] = useState('');
 
   // Dispute states
-const [showDisputeForm, setShowDisputeForm] = useState(false);
-const [disputeReason, setDisputeReason] = useState('Scam');
-const [disputeDescription, setDisputeDescription] = useState('');
-const [submittingDispute, setSubmittingDispute] = useState(false);
-const [disputeFeedback, setDisputeFeedback] = useState('');
+  const [showDisputeForm, setShowDisputeForm] = useState(false);
+  const [disputeReason, setDisputeReason] = useState('Scam');
+  const [disputeDescription, setDisputeDescription] = useState('');
+  const [submittingDispute, setSubmittingDispute] = useState(false);
+  const [disputeFeedback, setDisputeFeedback] = useState('');
 
   const token = localStorage.getItem('artloop_token');
 
@@ -45,8 +46,11 @@ const [disputeFeedback, setDisputeFeedback] = useState('');
   // Fetch product details
   const fetchProduct = async () => {
     try {
+      setLoading(true);
+      setError('');
+
       const response = await fetch(
-        `http://localhost:3000/api/products/${id}`
+        `${API_BASE_URL}/api/products/${id}`
       );
 
       const data = await response.json();
@@ -77,7 +81,7 @@ const [disputeFeedback, setDisputeFeedback] = useState('');
       setMarkingSold(true);
 
       const response = await fetch(
-        `http://localhost:3000/api/products/${id}/sold`,
+        `${API_BASE_URL}/api/products/${id}/sold`,
         {
           method: 'PATCH',
           headers: {
@@ -118,7 +122,7 @@ const [disputeFeedback, setDisputeFeedback] = useState('');
       setSwapFeedback('');
 
       const response = await fetch(
-        'http://localhost:3000/api/products/my/listings',
+        `${API_BASE_URL}/api/products/my/listings`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -163,7 +167,7 @@ const [disputeFeedback, setDisputeFeedback] = useState('');
       setSubmittingSwap(true);
 
       const response = await fetch(
-        'http://localhost:3000/api/swaps',
+        `${API_BASE_URL}/api/swaps`,
         {
           method: 'POST',
           headers: {
@@ -194,90 +198,88 @@ const [disputeFeedback, setDisputeFeedback] = useState('');
       setSubmittingSwap(false);
     }
   };
-// Start chat with seller
-const handleChatWithSeller = async () => {
-  if (!token) {
-    alert('Please login to chat with the seller.');
-    navigate('/login');
-    return;
-  }
 
-  try {
-    const response = await fetch(
-      `http://localhost:3000/api/chats/product/${id}`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || 'Unable to start chat.');
+  // Start chat with seller
+  const handleChatWithSeller = async () => {
+    if (!token) {
+      alert('Please login to chat with the seller.');
+      navigate('/login');
+      return;
     }
 
-    navigate(`/chat?id=${data.chat._id}`);
-  } catch (err) {
-    alert(err.message);
-  }
-};
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/api/chats/product/${id}`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-// Submit a dispute against seller
-const handleSubmitDispute = async (e) => {
-  e.preventDefault();
+      const data = await response.json();
 
-  if (!token) {
-    navigate('/login');
-    return;
-  }
-
-  if (!disputeDescription.trim()) {
-    setDisputeFeedback('Please describe your complaint.');
-    return;
-  }
-
-  try {
-    setSubmittingDispute(true);
-    setDisputeFeedback('');
-
-    const response = await fetch(
-      'http://localhost:3000/api/disputes',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          againstUser: sellerId,
-          product: id,
-          reason: disputeReason,
-          description: disputeDescription.trim(),
-        }),
+      if (!response.ok) {
+        throw new Error(data.message || 'Unable to start chat.');
       }
-    );
 
-    const data = await response.json();
+      navigate(`/chat?id=${data.chat._id}`);
+    } catch (err) {
+      alert(err.message);
+    }
+  };
 
-    if (!response.ok) {
-      throw new Error(data.message || 'Unable to submit complaint.');
+  // Submit a dispute against seller
+  const handleSubmitDispute = async (e) => {
+    e.preventDefault();
+
+    if (!token) {
+      navigate('/login');
+      return;
     }
 
-    setDisputeFeedback('Complaint submitted successfully!');
+    if (!disputeDescription.trim()) {
+      setDisputeFeedback('Please describe your complaint.');
+      return;
+    }
 
-    setDisputeDescription('');
-    setShowDisputeForm(false);
+    try {
+      setSubmittingDispute(true);
+      setDisputeFeedback('');
 
-  } catch (err) {
-    setDisputeFeedback(err.message);
-  } finally {
-    setSubmittingDispute(false);
-  }
-};
+      const response = await fetch(
+        `${API_BASE_URL}/api/disputes`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            againstUser: sellerId,
+            product: id,
+            reason: disputeReason,
+            description: disputeDescription.trim(),
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Unable to submit complaint.');
+      }
+
+      setDisputeFeedback('Complaint submitted successfully!');
+      setDisputeDescription('');
+      setShowDisputeForm(false);
+    } catch (err) {
+      setDisputeFeedback(err.message);
+    } finally {
+      setSubmittingDispute(false);
+    }
+  };
 
   // Submit product review
   const handleSubmitReview = async (e) => {
@@ -305,7 +307,7 @@ const handleSubmitDispute = async (e) => {
       setSubmittingReview(true);
 
       const response = await fetch(
-        `http://localhost:3000/api/products/${id}/reviews`,
+        `${API_BASE_URL}/api/products/${id}/reviews`,
         {
           method: 'POST',
           headers: {
@@ -367,7 +369,6 @@ const handleSubmitDispute = async (e) => {
 
   // Review information
   const reviews = product.reviews || [];
-
   const totalReviews = reviews.length;
 
   const averageRating =
@@ -513,7 +514,6 @@ const handleSubmitDispute = async (e) => {
                     marginBottom: '20px',
                   }}
                 >
-
                   <h3 style={{ color: '#304b38' }}>
                     Request a Product Swap
                   </h3>
@@ -565,9 +565,7 @@ const handleSubmitDispute = async (e) => {
                           marginBottom: '15px',
                         }}
                       >
-                        <option value="">
-                          Choose a product
-                        </option>
+                        <option value="">Choose a product</option>
 
                         {myProducts.map((item) => (
                           <option
@@ -650,7 +648,6 @@ const handleSubmitDispute = async (e) => {
                   )}
                 </form>
               )}
-
             </div>
           )}
 
@@ -672,128 +669,137 @@ const handleSubmitDispute = async (e) => {
             </p>
 
             {!isOwner && !isAdmin && (
-  <button
-    type="button"
-    onClick={() => {
-      if (!token) {
-        navigate('/login');
-        return;
-      }
+              <button
+                type="button"
+                onClick={() => {
+                  if (!token) {
+                    navigate('/login');
+                    return;
+                  }
 
-      setShowDisputeForm(!showDisputeForm);
-    }}
-    style={{
-      backgroundColor: '#fff0ed',
-      color: '#c0392b',
-      border: '1px solid #e6b8ae',
-      padding: '11px 18px',
-      borderRadius: '8px',
-      cursor: 'pointer',
-      marginBottom: '15px',
-      fontWeight: '600',
-    }}
-  >
-    🚩 Report Seller
-  </button>
-)}
+                  setShowDisputeForm(!showDisputeForm);
+                }}
+                style={{
+                  backgroundColor: '#fff0ed',
+                  color: '#c0392b',
+                  border: '1px solid #e6b8ae',
+                  padding: '11px 18px',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  marginBottom: '15px',
+                  fontWeight: '600',
+                }}
+              >
+                🚩 Report Seller
+              </button>
+            )}
 
-{showDisputeForm && (
-  <form
-    onSubmit={handleSubmitDispute}
-    style={{
-      padding: '20px',
-      background: '#fff8f6',
-      border: '1px solid #edc5bb',
-      borderRadius: '12px',
-      marginBottom: '20px',
-    }}
-  >
-    <h3>Report a Problem</h3>
+            {showDisputeForm && (
+              <form
+                onSubmit={handleSubmitDispute}
+                style={{
+                  padding: '20px',
+                  background: '#fff8f6',
+                  border: '1px solid #edc5bb',
+                  borderRadius: '12px',
+                  marginBottom: '20px',
+                }}
+              >
+                <h3>Report a Problem</h3>
 
-    <label>Reason for Complaint</label>
+                <label>Reason for Complaint</label>
 
-    <select
-      value={disputeReason}
-      onChange={(e) => setDisputeReason(e.target.value)}
-      required
-      style={{
-        display: 'block',
-        width: '100%',
-        padding: '12px',
-        margin: '10px 0',
-        borderRadius: '8px',
-      }}
-    >
-      <option value="Scam">Scam / Fraud</option>
-      <option value="Payment Issue">Payment Issue</option>
-      <option value="Product Issue">Product Issue</option>
-      <option value="Other">Other</option>
-    </select>
+                <select
+                  value={disputeReason}
+                  onChange={(e) => setDisputeReason(e.target.value)}
+                  required
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    padding: '12px',
+                    margin: '10px 0',
+                    borderRadius: '8px',
+                  }}
+                >
+                  <option value="Scam">Scam / Fraud</option>
+                  <option value="Payment Issue">Payment Issue</option>
+                  <option value="Product Issue">Product Issue</option>
+                  <option value="Other">Other</option>
+                </select>
 
-    <label>Describe your complaint</label>
+                <label>Describe your complaint</label>
 
-    <textarea
-      value={disputeDescription}
-      onChange={(e) => setDisputeDescription(e.target.value)}
-      placeholder="Explain what happened..."
-      maxLength={2000}
-      rows={5}
-      required
-      style={{
-        display: 'block',
-        width: '100%',
-        padding: '12px',
-        margin: '10px 0',
-        borderRadius: '8px',
-        resize: 'vertical',
-      }}
-    />
+                <textarea
+                  value={disputeDescription}
+                  onChange={(e) => setDisputeDescription(e.target.value)}
+                  placeholder="Explain what happened..."
+                  maxLength={2000}
+                  rows={5}
+                  required
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    padding: '12px',
+                    margin: '10px 0',
+                    borderRadius: '8px',
+                    resize: 'vertical',
+                  }}
+                />
 
-    <p>{disputeDescription.length}/2000 characters</p>
+                <p>{disputeDescription.length}/2000 characters</p>
 
-    <button
-      type="submit"
-      disabled={submittingDispute}
-      className="contact-seller-button"
-    >
-      {submittingDispute ? 'Submitting...' : 'Submit Complaint'}
-    </button>
+                <button
+                  type="submit"
+                  disabled={submittingDispute}
+                  className="contact-seller-button"
+                >
+                  {submittingDispute
+                    ? 'Submitting...'
+                    : 'Submit Complaint'}
+                </button>
 
-    <button
-      type="button"
-      onClick={() => setShowDisputeForm(false)}
-      style={{
-        marginLeft: '10px',
-        padding: '10px 16px',
-        cursor: 'pointer',
-      }}
-    >
-      Cancel
-    </button>
-  </form>
-)}
+                <button
+                  type="button"
+                  onClick={() => setShowDisputeForm(false)}
+                  style={{
+                    marginLeft: '10px',
+                    padding: '10px 16px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Cancel
+                </button>
+              </form>
+            )}
 
-{disputeFeedback && (
-  <p style={{ color: '#c0392b', fontWeight: '600' }}>
-    {disputeFeedback}
-  </p>
-)}
+            {disputeFeedback && (
+              <p
+                style={{
+                  color: disputeFeedback.includes('successfully')
+                    ? '#32845a'
+                    : '#c0392b',
+                  fontWeight: '600',
+                }}
+              >
+                {disputeFeedback}
+              </p>
+            )}
 
             {!isSold && !isOwner && !isAdmin && (
-  <button
-    type="button"
-    className="contact-seller-button"
-    onClick={handleChatWithSeller}
-    style={{
-      backgroundColor: '#496b50',
-      border: 'none',
-      cursor: 'pointer',
-      marginBottom: '12px',
-    }}
-  >
-    💬 Chat with Seller
-  </button>
-)}
+              <button
+                type="button"
+                className="contact-seller-button"
+                onClick={handleChatWithSeller}
+                style={{
+                  backgroundColor: '#496b50',
+                  border: 'none',
+                  cursor: 'pointer',
+                  marginBottom: '12px',
+                }}
+              >
+                💬 Chat with Seller
+              </button>
+            )}
 
             {isSold ? (
               <p>This product has already been sold.</p>
@@ -868,7 +874,6 @@ const handleSubmitDispute = async (e) => {
             className="review-form"
             onSubmit={handleSubmitReview}
           >
-
             <h3>Write a Review</h3>
 
             <p>How would you rate this product?</p>

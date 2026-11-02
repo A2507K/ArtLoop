@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { Palette, ArrowLeft, Plus, Image, X } from 'lucide-react';
+import API_BASE_URL from '../api';
 import './SellItem.css';
 
 function SellItem() {
@@ -42,7 +43,7 @@ function SellItem() {
         }
 
         const response = await fetch(
-          `http://localhost:3000/api/products/${editId}`,
+          `${API_BASE_URL}/api/products/${editId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -173,8 +174,8 @@ function SellItem() {
 
       const response = await fetch(
         isEditing
-          ? `http://localhost:3000/api/products/${editId}`
-          : 'http://localhost:3000/api/products',
+          ? `${API_BASE_URL}/api/products/${editId}`
+          : `${API_BASE_URL}/api/products`,
         {
           method: isEditing ? 'PUT' : 'POST',
           headers: {

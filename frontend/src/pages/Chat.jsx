@@ -9,8 +9,9 @@ import {
   RefreshCw,
 } from 'lucide-react';
 import './Chat.css';
+import API_BASE_URL from '../api';
 
-const API = 'http://localhost:3000/api';
+const API = `${API_BASE_URL}/api`;
 
 function Chat() {
   const navigate = useNavigate();

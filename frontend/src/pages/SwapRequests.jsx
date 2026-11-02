@@ -10,6 +10,7 @@ import {
   RefreshCw,
 } from 'lucide-react';
 
+import API_BASE_URL from '../api';
 import './SwapRequests.css';
 
 function SwapRequests() {
@@ -30,10 +31,10 @@ function SwapRequests() {
       setError('');
 
       const [sentResponse, receivedResponse] = await Promise.all([
-        fetch('http://localhost:3000/api/swaps/sent', {
+        fetch(`${API_BASE_URL}/api/swaps/sent`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        fetch('http://localhost:3000/api/swaps/received', {
+        fetch(`${API_BASE_URL}/api/swaps/received`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);
@@ -71,8 +72,8 @@ function SwapRequests() {
 
       const endpoint =
         action === 'Cancelled'
-          ? `http://localhost:3000/api/swaps/${requestId}/cancel`
-          : `http://localhost:3000/api/swaps/${requestId}/respond`;
+          ? `${API_BASE_URL}/api/swaps/${requestId}/cancel`
+          : `${API_BASE_URL}/api/swaps/${requestId}/respond`;
 
       const response = await fetch(endpoint, {
         method: 'PATCH',

@@ -10,6 +10,7 @@ import {
   ArrowLeft,
 } from 'lucide-react';
 
+import API_BASE_URL from '../api';
 import './Wishlist.css';
 
 const FALLBACK_IMAGE =
@@ -38,7 +39,7 @@ function Wishlist() {
         setError('');
 
         const response = await fetch(
-          'http://localhost:3000/api/products/my/wishlist',
+          `${API_BASE_URL}/api/products/my/wishlist`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -74,7 +75,7 @@ function Wishlist() {
   const removeFromWishlist = async (productId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/products/${productId}/wishlist`,
+        `${API_BASE_URL}/api/products/${productId}/wishlist`,
         {
           method: 'DELETE',
           headers: {

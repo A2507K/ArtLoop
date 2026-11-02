@@ -33,11 +33,11 @@ function AdminRoute({ children }) {
   try {
     user = JSON.parse(storedUser);
   } catch {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   if (user.role !== 'admin') {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/marketplace" replace />;
   }
 
   return children;
@@ -47,10 +47,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Marketplace />} />
-        <Route path="/marketplace" element={<Marketplace />} />
+        {/* Login is the default landing page */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/marketplace" element={<Marketplace />} />
 
         {/* Admin-only access */}
         <Route
@@ -72,7 +74,8 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/my-disputes" element={<MyDisputes />} />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* Unknown URLs return to Login */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
   );

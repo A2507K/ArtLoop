@@ -12,6 +12,7 @@ import {
   Trash2,
 } from 'lucide-react';
 
+import API_BASE_URL from '../api';
 import './SellerDashboard.css';
 
 function SellerDashboard() {
@@ -30,7 +31,7 @@ function SellerDashboard() {
       const token = localStorage.getItem('artloop_token');
 
       const response = await fetch(
-        'http://localhost:3000/api/products/my/listings',
+        `${API_BASE_URL}/api/products/my/listings`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -63,7 +64,7 @@ function SellerDashboard() {
       const token = localStorage.getItem('artloop_token');
 
       const response = await fetch(
-        `http://localhost:3000/api/products/${productId}`,
+        `${API_BASE_URL}/api/products/${productId}`,
         {
           method: 'DELETE',
           headers: {
