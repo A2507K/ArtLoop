@@ -1,5 +1,5 @@
 const API_BASE_URL = (
-  import.meta.env.VITE_API_URL || 'http://localhost:3000'
-).replace(/\/$/, '');
+  import.meta.env.VITE_API_URL || 'https://artloop-backend-sssp.onrender.com'
+).replace(/\/+$/, '');
 
 export default API_BASE_URL;
